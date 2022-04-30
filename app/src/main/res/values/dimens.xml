@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Font size-->
+    <dimen name="textXS">12sp</dimen>
+    <dimen name="textS">14sp</dimen>
+    <dimen name="textM">16sp</dimen>
+    <dimen name="textL">18sp</dimen>
+    <dimen name="textXL">20sp</dimen>
+    <dimen name="textXXL">22sp</dimen>
+    <dimen name="textXX2L">24sp</dimen>
+    <dimen name="textXX3L">26sp</dimen>
+    <dimen name="textXX4L">28sp</dimen>
+    <dimen name="textXXXL">32sp</dimen>
+    <dimen name="textXXXXL">36sp</dimen>
+
+    <!--Margin size-->
+    <dimen name="marginXS">4dp</dimen>
+    <dimen name="marginS">8dp</dimen>
+    <dimen name="marginM">12dp</dimen>
+    <dimen name="marginL">16dp</dimen>
+    <dimen name="marginXL">24dp</dimen>
+    <dimen name="marginXXL">32dp</dimen>
+    <dimen name="marginXXXL">48dp</dimen>
+
+    <dimen name="header_height">28dp</dimen>
+    <dimen name="navigation_header_height">128dp</dimen>
+</resources>

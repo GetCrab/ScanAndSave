@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/navigation_header_height"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/textXL"
+        android:textColor="@color/colorBlack"
+        android:textStyle="bold"
+        android:text="Filip Mišadin"
+        android:layout_marginTop="@dimen/marginXXL"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:paddingStart="@dimen/marginL"
+        android:paddingEnd="@dimen/marginL"
+        app:layout_constraintBottom_toTopOf="@+id/email" />
+
+    <TextView
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/textL"
+        android:textColor="@color/colorBlack"
+        android:text="filip.misadin@gmail.com"
+        android:paddingStart="@dimen/marginL"
+        android:paddingEnd="@dimen/marginL"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

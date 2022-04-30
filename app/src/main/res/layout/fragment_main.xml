@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawerLayout"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent" >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?android:actionBarSize">
+
+<!--        <androidx.appcompat.widget.Toolbar-->
+<!--            android:id="@+id/toolbar"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:navigationIcon="@drawable/ic_menu"/>-->
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/tabLayout"/>
+
+        <androidx.constraintlayout.helper.widget.Flow
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/marginM"
+            android:paddingBottom="@dimen/marginM"
+            android:background="@color/colorWhite"
+            android:elevation="@dimen/marginL"
+            android:layout_marginTop="-32dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:constraint_referenced_ids="receiptTab,graphTab,addSpace,statsTab,searchTab"
+            app:flow_wrapMode="chain"
+            app:flow_horizontalGap="@dimen/marginM"/>
+
+        <ImageView
+            android:id="@+id/receiptTab"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_receipt" />
+
+        <ImageView
+            android:id="@+id/graphTab"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_graph" />
+
+        <Space
+            android:id="@+id/addSpace"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/statsTab"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_stats" />
+
+        <ImageView
+            android:id="@+id/searchTab"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_search" />
+
+        <ImageView
+            android:id="@+id/addReceiptBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/marginS"
+            android:background="@drawable/bg_round_button"
+            android:src="@drawable/ic_add"
+            android:layout_marginBottom="@dimen/marginXS"
+            android:translationZ="@dimen/marginL"
+            android:layout_marginTop="-16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/searchTab"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigation_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:clipToPadding="false"
+        app:menu="@menu/menu_navigation"
+        app:headerLayout="@layout/view_navigation_header"/>
+
+</androidx.drawerlayout.widget.DrawerLayout>

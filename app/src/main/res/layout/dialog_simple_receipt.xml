@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/dialogTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_new_simple_receipt"
+        android:textSize="@dimen/textL"
+        android:layout_marginStart="@dimen/marginXS"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <hr.bm.scanandsave.ui.views.CustomInputLayout
+        android:id="@+id/storeNameLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/marginM"
+        android:layout_marginTop="@dimen/marginL"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/category"
+        app:layout_constraintTop_toBottomOf="@+id/dialogTitle"
+        style="@style/InputFieldLayoutStyle">
+
+        <EditText
+            android:id="@+id/storeName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/InputFieldStyle"
+            android:hint="@string/store"/>
+
+    </hr.bm.scanandsave.ui.views.CustomInputLayout>
+
+    <TextView
+        android:id="@+id/category"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_button"
+        android:gravity="center"
+        android:paddingStart="@dimen/marginM"
+        android:paddingEnd="@dimen/marginM"
+        android:drawablePadding="@dimen/marginS"
+        android:textSize="@dimen/textL"
+        android:layout_marginTop="@dimen/marginXS"
+        android:layout_marginBottom="@dimen/marginXS"
+        android:elevation="4dp"
+        app:drawableEndCompat="@drawable/ic_small_arrow_down"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/storeNameLayout"
+        app:layout_constraintBottom_toBottomOf="@+id/storeNameLayout"
+        android:text="@string/receipts" />
+
+    <hr.bm.scanandsave.ui.views.CustomInputLayout
+        android:id="@+id/descriptionLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/storeNameLayout"
+        style="@style/InputFieldLayoutStyle">
+
+        <EditText
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/InputFieldStyle"
+            android:hint="@string/description"/>
+
+    </hr.bm.scanandsave.ui.views.CustomInputLayout>
+
+    <hr.bm.scanandsave.ui.views.CustomInputLayout
+        android:id="@+id/amountLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/marginM"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descriptionLayout"
+        app:decimalField="true"
+        style="@style/InputFieldLayoutStyle">
+
+        <EditText
+            android:id="@+id/amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/PriceInputFieldStyle"
+            android:inputType="numberDecimal"
+            android:hint="@string/amount"/>
+
+    </hr.bm.scanandsave.ui.views.CustomInputLayout>
+
+    <TextView
+        android:id="@+id/btnAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/marginXS"
+        style="@style/ButtonStyle"
+        android:text="@string/add"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/amountLayout"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

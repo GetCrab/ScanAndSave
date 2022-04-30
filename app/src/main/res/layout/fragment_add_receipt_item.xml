@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_bottom_sheet"
+    android:paddingStart="@dimen/marginL"
+    android:paddingEnd="@dimen/marginL">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_new_item"
+        android:layout_marginTop="@dimen/marginXL"
+        android:textSize="@dimen/textXL"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <hr.bm.scanandsave.ui.views.CustomInputLayout
+        android:id="@+id/nameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginS"
+        style="@style/InputFieldLayoutStyle"
+        app:layout_constraintTop_toBottomOf="@+id/title">
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/InputFieldStyle"
+            android:hint="@string/item_name"/>
+
+    </hr.bm.scanandsave.ui.views.CustomInputLayout>
+
+    <hr.bm.scanandsave.ui.views.CustomInputLayout
+        android:id="@+id/priceLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginS"
+        style="@style/InputFieldLayoutStyle"
+        app:decimalField="true"
+        app:layout_constraintTop_toBottomOf="@+id/nameLayout">
+
+        <EditText
+            android:id="@+id/price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/PriceInputFieldStyle"
+            android:hint="@string/price"/>
+
+    </hr.bm.scanandsave.ui.views.CustomInputLayout>
+
+    <TextView
+        android:id="@+id/btnAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/marginL"
+        android:layout_marginTop="@dimen/marginL"
+        style="@style/ButtonStyle"
+        android:text="@string/add"
+        app:layout_constraintTop_toBottomOf="@+id/priceLayout"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

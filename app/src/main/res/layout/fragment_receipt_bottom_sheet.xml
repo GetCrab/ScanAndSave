@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_bottom_sheet">
+
+    <TextView
+        android:id="@+id/simpleReceipt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/simple_receipt"
+        android:layout_marginTop="@dimen/marginXL"
+        android:layout_marginStart="@dimen/marginXL"
+        android:layout_marginEnd="@dimen/marginXL"
+        android:textSize="@dimen/textXL"
+        android:gravity="center_vertical"
+        android:textColor="@color/colorBlack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:drawableStartCompat="@drawable/ic_simple_receipt" />
+
+    <TextView
+        android:id="@+id/detailedReceipt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/detailed_receipt"
+        android:layout_marginTop="@dimen/marginS"
+        android:layout_marginStart="@dimen/marginXL"
+        android:layout_marginEnd="@dimen/marginXL"
+        android:textSize="@dimen/textXL"
+        android:gravity="center_vertical"
+        android:textColor="@color/colorBlack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/simpleReceipt"
+        app:drawableStartCompat="@drawable/ic_detailed_receipt" />
+
+    <TextView
+        android:id="@+id/scanReceipt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginS"
+        android:layout_marginBottom="@dimen/marginL"
+        android:layout_marginStart="@dimen/marginXL"
+        android:layout_marginEnd="@dimen/marginXL"
+        android:text="@string/scan_receipt"
+        android:textSize="@dimen/textXL"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/marginS"
+        android:paddingTop="@dimen/marginXS"
+        android:paddingBottom="@dimen/marginXS"
+        android:drawablePadding="@dimen/marginS"
+        android:textColor="@color/colorBlack"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detailedReceipt"
+        app:drawableStartCompat="@drawable/ic_scan_receipt" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

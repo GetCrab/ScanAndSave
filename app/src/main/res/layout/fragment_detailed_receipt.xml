@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingLeft="@dimen/marginL"
+    android:paddingRight="@dimen/marginL"
+    android:clipToPadding="false">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_arrow_left"
+        android:layout_marginStart="-16dp"
+        android:layout_marginEnd="-16dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:paddingEnd="@dimen/marginL"
+            android:paddingStart="@dimen/marginL">
+
+            <ImageView
+                android:id="@+id/btnRepeat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_repeat"
+                android:padding="@dimen/marginS"
+                android:visibility="gone"
+                tools:visibility="visible"/>
+
+            <ImageView
+                android:id="@+id/btnDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_delete"
+                android:padding="@dimen/marginS"
+                android:visibility="gone"
+                tools:visibility="visible"/>
+
+        </LinearLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginL"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        android:text="@string/add_new_detailed_receipt"
+        android:textSize="@dimen/textXL"/>
+
+    <hr.bm.scanandsave.ui.views.CustomInputLayout
+        android:id="@+id/storeLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginL"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/category"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        style="@style/InputFieldLayoutStyle" >
+
+        <EditText
+            android:id="@+id/storeName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/InputFieldStyle"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:inputType="text"
+            android:hint="@string/store"/>
+
+    </hr.bm.scanandsave.ui.views.CustomInputLayout>
+
+    <TextView
+        android:id="@+id/dateTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginL"
+        android:text="@string/date"
+        android:textSize="@dimen/textS"
+        app:layout_constraintBaseline_toBaselineOf="@+id/date"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginM"
+        android:text="02/02/2022"
+        android:textSize="@dimen/textXXL"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginStart="@dimen/marginXXL"
+        app:layout_constraintStart_toEndOf="@+id/dateTitle"
+        app:layout_constraintTop_toBottomOf="@+id/storeLayout"/>
+
+    <TextView
+        android:id="@+id/category"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_button"
+        android:gravity="center"
+        android:paddingStart="@dimen/marginM"
+        android:paddingEnd="@dimen/marginM"
+        android:drawablePadding="@dimen/marginS"
+        android:textSize="@dimen/textL"
+        android:layout_marginTop="@dimen/marginXS"
+        android:layout_marginBottom="@dimen/marginXS"
+        android:elevation="4dp"
+        app:drawableEndCompat="@drawable/ic_small_arrow_down"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/storeLayout"
+        app:layout_constraintBottom_toBottomOf="@+id/storeLayout"
+        android:text="@string/receipts" />
+
+    <TextView
+        android:id="@+id/receiptTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginL"
+        android:text="@string/receipt_items"
+        android:textSize="@dimen/textS"
+        app:layout_constraintTop_toBottomOf="@+id/dateTitle"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/receiptsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/marginL"
+        android:layout_marginBottom="@dimen/marginL"
+        android:overScrollMode="never"
+        app:layout_constraintTop_toBottomOf="@+id/receiptTitle"
+        app:layout_constraintBottom_toTopOf="@+id/txtTotal"/>
+
+    <TextView
+        android:id="@+id/txtTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/marginL"
+        android:textSize="@dimen/textL"
+        android:text="@string/total"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnAdd"/>
+
+    <TextView
+        android:id="@+id/total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/marginL"
+        android:textSize="@dimen/textL"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnAdd"/>
+
+    <TextView
+        android:id="@+id/btnAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/marginL"
+        style="@style/ButtonStyle"
+        android:text="@string/add"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnRetake" />
+
+    <TextView
+        android:id="@+id/btnRetake"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/marginL"
+        style="@style/ButtonStyle"
+        android:text="@string/retake"
+        android:backgroundTint="@color/colorLightBlue"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

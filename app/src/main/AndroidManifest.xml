@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="hr.bm.scanandsave">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.ScanAndSave"
+        android:name=".base.BaseApplication">
+        <activity
+            android:name=".ui.activities.StartActivity"
+            android:exported="true">
+        </activity>
+        <activity android:name=".ui.activities.register.RegisterActivity"
+            android:theme="@style/AppTheme.Launcher" />
+        <activity android:name=".ui.activities.login.LoginActivity"
+            android:theme="@style/AppTheme.Launcher" />
+        <activity android:name=".ui.activities.main.ScanActivity" />
+        <activity android:name=".ui.activities.main.MainActivity"
+            android:theme="@style/AppTheme.Launcher"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+<!--        <meta-data-->
+<!--            android:name="com.microblink.LicenseKey"-->
+<!--            android:value="sRwAAAARaHIuYm0uc2NhbmFuZHNhdmVdmzfncpUf3JS0Ysa4J1+rf8nwpfaEKk3dNHq0Q5PHpeHWKWF0kyP7W38r6csovTKw4q1JDRjdlIY75NJ8HwCIbq0/F5560mHy+YC5TTYSIGDjqgH/gWwPC5WWSOtExM0mG0sY0hb7eLZxoZhU4pzicjbsWXRE9XXvogA3kNDI8nvwDEV2QQ==" />-->
+        <meta-data
+            android:name="com.microblink.LicenseKey"
+            android:value="sRwAAAAeaHIuYm0uc2NhbmFuZHNhdmUuZGVidWdTdGFnaW5n28j2F6bWcfn1I69UGc+Dgar04cru6RZiMLc5Q3M8h740m/DxmW5WOhLpWIKhYkGWgmzZcsqCL7cUzDe9nn6Q54354eHI9+hZ0v7eq/6ZYM3qwKJtwfn8WHOwT14uUu6OzBNNTmtKV3fWN/1ry9eCsJWm2FDH1m80vJBZ8Mmwjiaa/plFMQ8=" />
+    </application>
+
+</manifest>

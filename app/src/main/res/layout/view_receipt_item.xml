@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/marginS">
+
+    <EditText
+        android:id="@+id/itemName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:minWidth="100dp"
+        android:background="@null"
+        android:importantForAutofill="no"
+        android:inputType="text|textNoSuggestions"
+        android:textSize="@dimen/textL"
+        android:ellipsize="end"
+        android:selectAllOnFocus="true"
+        android:layout_marginEnd="@dimen/marginS"
+        tools:ignore="LabelFor"
+        android:longClickable="true"/>
+
+    <EditText
+        android:id="@+id/itemPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:importantForAutofill="no"
+        android:textSize="@dimen/textL"
+        android:selectAllOnFocus="true"
+        android:inputType="numberDecimal|textNoSuggestions"
+        android:digits="0123456789."
+        tools:ignore="LabelFor"
+        android:longClickable="true"/>
+
+</LinearLayout>
