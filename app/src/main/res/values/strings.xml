@@ -51,4 +51,6 @@
     <string name="camera_torch">Torch</string>
     <string name="capture_photo">Photo</string>
     <string name="finish_scan">Scan</string>
+
+    <string name="camera_permission_rationale">This app needs access to your camera so you can take pictures.</string>
 </resources>

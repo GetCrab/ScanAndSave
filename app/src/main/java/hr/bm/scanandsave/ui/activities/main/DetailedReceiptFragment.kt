@@ -12,6 +12,7 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.microblink.BlinkReceiptSdk
 import com.microblink.EdgeDetectionConfiguration
 //import com.microblink.CameraScanActivity
 import com.microblink.FrameCharacteristics
@@ -118,7 +119,7 @@ open class DetailedReceiptFragment(private val parentViewModel: MainViewModel, p
         binding.date.setOnClickListener(this)
     }
 
-    private fun createViewModel() {
+    protected open fun createViewModel() {
         receiptViewModel = viewModelFactory.let {
             ViewModelProvider(this, it)[DetailedReceiptViewModel::class.java]
         }
@@ -188,7 +189,7 @@ open class DetailedReceiptFragment(private val parentViewModel: MainViewModel, p
 
     protected fun updateReceiptItems() {
         for (i in 0..(adapter.itemCount - 2)) {
-            (binding.receiptsRecyclerView.findViewHolderForAdapterPosition(i) as ReceiptItemsListAdapter.ItemsViewHolder).updateItem()
+            (binding.receiptsRecyclerView.findViewHolderForAdapterPosition(i) as ReceiptItemsListAdapter.ItemsViewHolder?)?.updateItem()
         }
     }
 
@@ -259,9 +260,8 @@ open class DetailedReceiptFragment(private val parentViewModel: MainViewModel, p
                     )
             )
         } else {
-            //TODO check this string rationale
             EasyPermissions.requestPermissions(
-                this, "getString(R.string.permissions_rationale)",
+                this, getString(R.string.camera_permission_rationale),
                 1, Manifest.permission.CAMERA
             )
         }

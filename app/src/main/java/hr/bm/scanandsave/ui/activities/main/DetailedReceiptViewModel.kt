@@ -2,24 +2,20 @@ package hr.bm.scanandsave.ui.activities.main
 
 import android.app.Application
 import android.content.Context
-import android.widget.Toast
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import hr.bm.scanandsave.R
 import hr.bm.scanandsave.api.repository.ReceiptRepository
-import hr.bm.scanandsave.api.repository.SpendingRepository
+import hr.bm.scanandsave.api.services.ReceiptRemoteDataSource
+import hr.bm.scanandsave.base.BaseViewModel
 import hr.bm.scanandsave.database.entities.Receipt
 import hr.bm.scanandsave.database.entities.ReceiptItem
 import hr.bm.scanandsave.database.entities.ReceiptWithItems
 import hr.bm.scanandsave.database.entities.User
 import hr.bm.scanandsave.enums.ErrorType
-import io.reactivex.Completable
-import io.reactivex.android.schedulers.AndroidSchedulers
+import hr.bm.scanandsave.utils.Resource
+import hr.bm.scanandsave.utils.ResourceStatus
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.observers.DisposableSingleObserver
-import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
@@ -28,8 +24,9 @@ import javax.inject.Inject
 class DetailedReceiptViewModel
 @Inject constructor(
     application: Application,
-    private val receiptRepository: ReceiptRepository
-) : AndroidViewModel(application) {
+    private val receiptRepository: ReceiptRepository,
+    private val receiptRemoteDataSource: ReceiptRemoteDataSource
+) : BaseViewModel(application) {
 
     private var disposable: CompositeDisposable?
     private lateinit var user: LiveData<User>
@@ -43,7 +40,12 @@ class DetailedReceiptViewModel
     private var receiptDate: MutableLiveData<Date?> = MutableLiveData()
 
     private var totalPrice: Double = 0.0
+
+    //TODO check if this causes crashes, since it is only used and initialized in EditDetailedReceiptFragment
     private lateinit var receipt: LiveData<ReceiptWithItems>
+    private var status: MutableLiveData<ResourceStatus> = MutableLiveData()
+
+    private var actionResult: MutableLiveData<Resource<Any?>> = MutableLiveData()
 
     private fun getContext(): Context {
         return getApplication<Application>().applicationContext
@@ -91,6 +93,10 @@ class DetailedReceiptViewModel
         return totalPrice
     }
 
+    fun getActionResult(): MutableLiveData<Resource<Any?>> {
+        return actionResult
+    }
+
     fun addReceiptItem(item: ReceiptItem) {
         itemsList.add(item)
         itemsListLiveData.postValue(itemsList)
@@ -120,10 +126,12 @@ class DetailedReceiptViewModel
 //                }.subscribe()
 //        )
         //TODO check what to do if error occurs in this cases
-        viewModelScope.launch(Dispatchers.IO) {
+        //viewModelScope.launch(Dispatchers.IO) {
             receipt.date = receiptDate.value
-            receiptRepository.storeReceiptInDatabase(receipt, itemsList, category)
-        }
+            makeNotUpdateableDatabaseCall(actionResult) {
+                receiptRepository.storeReceiptInDatabase(receipt, itemsList, category)
+            }
+        //}
     }
 
     fun deleteReceipt(receiptId: Int) {
@@ -143,9 +151,11 @@ class DetailedReceiptViewModel
 //                    loading.postValue(false)
 //                }.subscribe()
 //        )
-        viewModelScope.launch(Dispatchers.IO) {
-            receiptRepository.deleteReceiptByIdInDatabase(receiptId)
-        }
+        //viewModelScope.launch(Dispatchers.IO) {
+            makeNotUpdateableDatabaseCall(actionResult) {
+                receiptRepository.deleteReceiptByIdInDatabase(receiptId)
+            }
+        //}
     }
 
     fun updateReceipt(receipt: Receipt, category: String) {
@@ -166,14 +176,20 @@ class DetailedReceiptViewModel
 //                    loading.postValue(false)
 //                }.subscribe()
 //        )
-        viewModelScope.launch(Dispatchers.IO) {
+        //viewModelScope.launch(Dispatchers.IO) {
             receipt.date = receiptDate.value
-            receiptRepository.updateReceiptInDatabase(receipt, itemsList, category)
-        }
+            makeNotUpdateableDatabaseCall(actionResult) {
+                receiptRepository.updateReceiptInDatabase(receipt, itemsList, category)
+            }
+        //}
     }
 
     fun getReceipt(): LiveData<ReceiptWithItems> {
         return receipt
+    }
+
+    fun getStatus(): LiveData<ResourceStatus> {
+        return status
     }
 
     fun fetchReceipt(receiptId: Long) {
@@ -195,11 +211,26 @@ class DetailedReceiptViewModel
 //                }
 //            })
 //        )
+        //viewModelScope.launch(Dispatchers.IO) {
+//            makeDatabaseCall(receipt) {
+//                receiptRepository.getReceipt(
+//                    receiptId
+//                )
+//            }
+            //receipt = receiptRepository.getReceipt(receiptId)
+        //}
+
+        //TODO wrong api call
+        makeApiCallAndStoreData(getContext(), status, receiptRemoteDataSource::getUser, receiptRepository::storeReceiptListInDatabase)
+    }
+
+    fun initReceiptData(receiptId: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             receipt = receiptRepository.getReceipt(receiptId)
         }
     }
 
+    //TODO prebacit u BaseViewModel
     override fun onCleared() {
         super.onCleared()
         if (disposable != null) {

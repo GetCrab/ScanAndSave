@@ -1,6 +1,7 @@
 package hr.bm.scanandsave.api.repository
 
 import androidx.lifecycle.LiveData
+import hr.bm.scanandsave.api.responses.ReceiptResponse
 import hr.bm.scanandsave.api.services.ReceiptRemoteDataSource
 import hr.bm.scanandsave.api.services.UserRemoteDataSource
 import hr.bm.scanandsave.database.dao.CategoryDao
@@ -9,6 +10,7 @@ import hr.bm.scanandsave.database.dao.ReceiptItemDao
 import hr.bm.scanandsave.database.dao.UserDao
 import hr.bm.scanandsave.database.entities.*
 import hr.bm.scanandsave.utils.Resource
+import hr.bm.scanandsave.utils.receiptResponseToReceipts
 import io.reactivex.Single
 import java.util.*
 import javax.inject.Inject
@@ -28,6 +30,14 @@ class ReceiptRepository @Inject constructor(
             storeReceiptItemInDatabase(item)
         }
         return receiptId
+    }
+
+    fun storeReceiptListInDatabase(response: ReceiptResponse?) {
+        if (response == null)
+            return
+
+        //TODO handle this
+        val receipts = receiptResponseToReceipts(response)
     }
 
     fun updateReceiptInDatabase(receipt: Receipt, items: List<ReceiptItem>, category: String) : Int {

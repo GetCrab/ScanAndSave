@@ -9,5 +9,5 @@ import retrofit2.http.GET
 
 interface ReceiptService {
     @GET("receipts")
-    fun getReceipts(): Response<LiveData<ReceiptResponse>>
+    fun getReceipts(): Response<ReceiptResponse>
 }

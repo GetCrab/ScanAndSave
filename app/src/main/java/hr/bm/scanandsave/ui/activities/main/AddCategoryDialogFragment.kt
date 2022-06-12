@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import com.jakewharton.rxbinding2.widget.RxTextView
 import dagger.android.support.AndroidSupportInjection
 import hr.bm.scanandsave.R
+import hr.bm.scanandsave.base.BaseDialogFragment
 import hr.bm.scanandsave.database.entities.Category
 import hr.bm.scanandsave.database.entities.Receipt
 import hr.bm.scanandsave.database.entities.ReceiptItem
@@ -28,7 +29,7 @@ import java.lang.NumberFormatException
 import java.util.*
 import javax.inject.Inject
 
-class AddCategoryDialogFragment(private val parentViewModel: MainViewModel): DialogFragment(), View.OnClickListener {
+class AddCategoryDialogFragment(private val parentViewModel: MainViewModel): BaseDialogFragment(), View.OnClickListener {
 
     private lateinit var binding: DialogAddCategoryBinding
 
@@ -72,10 +73,11 @@ class AddCategoryDialogFragment(private val parentViewModel: MainViewModel): Dia
 
     @SuppressLint("CheckResult")
     private fun setObservers() {
-        // TODO add to disposable - create BaseDialogFragment ??
-        RxTextView.textChanges(binding.name).subscribeOn(Schedulers.io()).subscribe { str: CharSequence ->
-            binding.btnAdd.isEnabled = str.isNotEmpty()
-        }
+        addToDisposable(
+            RxTextView.textChanges(binding.name).subscribeOn(Schedulers.io()).subscribe { str: CharSequence ->
+                binding.btnAdd.isEnabled = str.isNotEmpty()
+            }
+        )
     }
 
     override fun onAttach(context: Context) {

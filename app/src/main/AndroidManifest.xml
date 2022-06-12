@@ -9,9 +9,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_dora"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher_dora_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ScanAndSave"
         android:name=".base.BaseApplication">
@@ -39,7 +39,7 @@
 <!--            android:value="sRwAAAARaHIuYm0uc2NhbmFuZHNhdmVdmzfncpUf3JS0Ysa4J1+rf8nwpfaEKk3dNHq0Q5PHpeHWKWF0kyP7W38r6csovTKw4q1JDRjdlIY75NJ8HwCIbq0/F5560mHy+YC5TTYSIGDjqgH/gWwPC5WWSOtExM0mG0sY0hb7eLZxoZhU4pzicjbsWXRE9XXvogA3kNDI8nvwDEV2QQ==" />-->
         <meta-data
             android:name="com.microblink.LicenseKey"
-            android:value="sRwAAAAeaHIuYm0uc2NhbmFuZHNhdmUuZGVidWdTdGFnaW5n28j2F6bWcfn1I69UGc+Dgar04cru6RZiMLc5Q3M8h740m/DxmW5WOhLpWIKhYkGWgmzZcsqCL7cUzDe9nn6Q54354eHI9+hZ0v7eq/6ZYM3qwKJtwfn8WHOwT14uUu6OzBNNTmtKV3fWN/1ry9eCsJWm2FDH1m80vJBZ8Mmwjiaa/plFMQ8=" />
+            android:value="sRwAAAAeaHIuYm0uc2NhbmFuZHNhdmUuZGVidWdTdGFnaW5n28j2F6bWcfn1I69UGe/az53uxPDZfyv7yu9l7w4OO2wm8QurRonkg+SZOzOemj3wrSkXrPYmYDONNfk+d3iENWRqMg3mPWNthILUBNooQVQ06nkQ9bP5y1hZ6N6J2AMI8RdMHL9x6hSn9YzdLXdO73ob40rVSJh9oQnYSGLBZSigjf6hgHg=" />
     </application>
 
 </manifest>

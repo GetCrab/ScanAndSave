@@ -29,6 +29,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             applicationIdSuffix ".debugStaging"
         }
+
+        work {
+            initWith debug
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            applicationIdSuffix ".debugWork"
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11

@@ -148,16 +148,19 @@ class ReceiptsListAdapter
 
     init {
         viewModel.getReceipts().observe(lifecycleOwner, { result ->
-            if (result?.status == Resource.Status.SUCCESS) {
-                //result.data?.removeObservers(lifecycleOwner)
-                result.data?.observe(lifecycleOwner, { receipts ->
-                    data.clear()
-                    if (receipts != null) {
-                        data.addAll(receipts)
-                        notifyDataSetChanged()
-                    }
-                })
-            }
+//            if (result?.status == Resource.Status.SUCCESS) {
+//                //result.data?.removeObservers(lifecycleOwner)
+//                result.data?.observe(lifecycleOwner, { receipts ->
+//                    data.clear()
+//                    if (receipts != null) {
+//                        data.addAll(receipts)
+//                        notifyDataSetChanged()
+//                    }
+//                })
+//            }
+            data.clear()
+            data.addAll(result)
+            notifyDataSetChanged()
         })
         setHasStableIds(true)
     }

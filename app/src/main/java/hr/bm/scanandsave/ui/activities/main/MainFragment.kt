@@ -96,6 +96,8 @@ class MainFragment : BaseFragment(), View.OnClickListener {
         baseActivity?.supportActionBar?.setDisplayHomeAsUpEnabled(false)
         baseActivity?.supportActionBar?.setDisplayShowCustomEnabled(true)
         baseActivity?.supportActionBar?.setCustomView(R.layout.view_title_toolbar)
+        baseActivity?.supportActionBar?.setDisplayUseLogoEnabled(false)
+        baseActivity?.supportActionBar?.setDisplayShowCustomEnabled(true)
         baseActivity?.supportActionBar?.elevation = 0F
         baseActivity?.supportActionBar?.customView?.findViewById<ImageButton>(R.id.btnDrawer)?.setOnClickListener { showMenu() }
         baseActivity?.supportActionBar?.customView?.findViewById<TextView>(R.id.title)?.text = getString(R.string.receipts)
@@ -132,6 +134,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
     private fun selectTab(index: Int) {
         mPagerTabBackstack.add(binding.viewPager.currentItem)
         binding.viewPager.currentItem = index
+        //TODO refactor
         when (index) {
             0 -> {
                 DrawableCompat.setTint(binding.receiptTab.drawable, ContextCompat.getColor(activity!!, R.color.colorAccent))

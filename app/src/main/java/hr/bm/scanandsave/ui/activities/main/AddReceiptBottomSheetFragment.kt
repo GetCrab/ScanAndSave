@@ -39,6 +39,7 @@ class AddReceiptBottomSheetFragment(private val parentViewModel: MainViewModel) 
 //            val scanResult: ScanResults? = data.getParcelableExtra(ScanActivity.DATA_EXTRA)
 //            if (scanResult != null) {
 //                val media: Media? = data.getParcelableExtra(ScanActivity.MEDIA_EXTRA)
+                (context as MainActivity).hideToolbar()
                 activity!!.supportFragmentManager.beginTransaction()
                     .replace(R.id.screenContainer, DetailedReceiptFragment(parentViewModel, data), DetailedReceiptFragment.TAG)
                     .addToBackStack(DetailedReceiptFragment.TAG)
@@ -85,6 +86,7 @@ class AddReceiptBottomSheetFragment(private val parentViewModel: MainViewModel) 
         if (activity == null)
             return
 
+        (context as MainActivity).hideToolbar()
         activity!!.supportFragmentManager.beginTransaction()
             .replace(R.id.screenContainer, DetailedReceiptFragment(parentViewModel, null), "detailed_receipt")
             .addToBackStack("detailed_receipt")
@@ -117,6 +119,7 @@ class AddReceiptBottomSheetFragment(private val parentViewModel: MainViewModel) 
 //            startActivityForResult(intent, SCAN_RECEIPT_REQUEST)
 
             launcher.launch(
+                //TODO move scan options to viewmodel?
                 Intent(context, ScanActivity::class.java)
                     .putExtra(SCAN_OPTIONS_EXTRA, ScanOptions.newBuilder()
                         .frameCharacteristics(
@@ -135,26 +138,10 @@ class AddReceiptBottomSheetFragment(private val parentViewModel: MainViewModel) 
             )
 
         } else {
-            //TODO check this string rationale
             EasyPermissions.requestPermissions(
-                this, "getString(R.string.permissions_rationale)",
+                this, getString(R.string.camera_permission_rationale),
                 1, Manifest.permission.CAMERA
             )
         }
     }
-
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//        if (requestCode == SCAN_RECEIPT_REQUEST && resultCode == AppCompatActivity.RESULT_OK) {
-//            activity!!.supportFragmentManager.beginTransaction()
-//                .replace(R.id.screenContainer, DetailedReceiptFragment(parentViewModel, data), DetailedReceiptFragment.TAG)
-//                .addToBackStack(DetailedReceiptFragment.TAG)
-//                .commit()
-//        }
-//        dismiss()
-//    }
-
-//    companion object {
-//        const val SCAN_RECEIPT_REQUEST = 1
-//    }
 }

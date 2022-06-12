@@ -2,42 +2,26 @@ package hr.bm.scanandsave.ui.activities.main
 
 import android.app.Application
 import android.content.Context
-import android.content.Intent
-import android.widget.Toast
 import androidx.lifecycle.*
-import hr.bm.scanandsave.R
 import hr.bm.scanandsave.api.repository.ReceiptRepository
+import hr.bm.scanandsave.api.services.ReceiptRemoteDataSource
 import hr.bm.scanandsave.database.entities.User
-import hr.bm.scanandsave.api.repository.SpendingRepository
 import hr.bm.scanandsave.base.BaseViewModel
 import hr.bm.scanandsave.database.entities.Receipt
 import hr.bm.scanandsave.database.entities.ReceiptItem
 import hr.bm.scanandsave.database.entities.ReceiptWithItems
 import hr.bm.scanandsave.enums.ErrorType
-import hr.bm.scanandsave.ui.activities.main.MainActivity
-import hr.bm.scanandsave.utils.AppConstants
-import hr.bm.scanandsave.utils.Resource
-import hr.bm.scanandsave.utils.getPreferenceInt
-import hr.bm.scanandsave.utils.getPreferenceString
-import io.reactivex.Completable
-import io.reactivex.android.schedulers.AndroidSchedulers
+import hr.bm.scanandsave.utils.ResourceStatus
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.observers.DisposableSingleObserver
-import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.security.KeyStore
-import java.util.*
-import java.util.concurrent.TimeUnit
-import javax.crypto.Cipher
-import javax.crypto.SecretKey
-import javax.crypto.spec.IvParameterSpec
 import javax.inject.Inject
 
 class ReceiptsViewModel
 @Inject constructor(
     application: Application,
-    private val receiptRepository: ReceiptRepository
+    private val receiptRepository: ReceiptRepository,
+    private val receiptRemoteDataSource: ReceiptRemoteDataSource
 ) : BaseViewModel(application) {
 
     private var disposable: CompositeDisposable?
@@ -47,7 +31,8 @@ class ReceiptsViewModel
     private var showError: MutableLiveData<ErrorType> = MutableLiveData()
 
     private var receiptsWithItems: MutableLiveData<List<ReceiptWithItems>> = MutableLiveData()
-    private var receipts: MutableLiveData<Resource<LiveData<List<Receipt>>>> = MutableLiveData()
+    private lateinit var receipts: LiveData<List<Receipt>>
+    private var status: MutableLiveData<ResourceStatus> = MutableLiveData()
     //private lateinit var receipts: LiveData<List<Receipt>>
 
     private fun getContext(): Context {
@@ -58,8 +43,12 @@ class ReceiptsViewModel
         return listLoading
     }
 
-    fun getReceipts(): LiveData<Resource<LiveData<List<Receipt>>>> {
+    fun getReceipts(): LiveData<List<Receipt>> {
         return receipts
+    }
+
+    fun getStatus(): LiveData<ResourceStatus> {
+        return status
     }
 
     fun addSimpleReceipt(receipt: Receipt, items: List<ReceiptItem>, category: String) {
@@ -78,9 +67,12 @@ class ReceiptsViewModel
 //                    loading.postValue(false)
 //                }.subscribe()
 //        )
-        viewModelScope.launch(Dispatchers.IO) {
-            receiptRepository.storeReceiptInDatabase(receipt, items, category)
-        }
+
+//        viewModelScope.launch(Dispatchers.IO) {
+//            receiptRepository.storeReceiptInDatabase(receipt, items, category)
+//        }
+
+        makeDatabaseCall(null) { receiptRepository.storeReceiptInDatabase(receipt, items, category) }
     }
 
     fun deleteReceipt(receipt: Receipt) {
@@ -99,9 +91,10 @@ class ReceiptsViewModel
 //                    loading.postValue(false)
 //                }.subscribe()
 //        )
-        viewModelScope.launch(Dispatchers.IO) {
-            receiptRepository.deleteReceiptInDatabase(receipt)
-        }
+//        viewModelScope.launch(Dispatchers.IO) {
+//            receiptRepository.deleteReceiptInDatabase(receipt)
+//        }
+        makeDatabaseCall(null) { receiptRepository.deleteReceiptInDatabase(receipt) }
     }
 
     private fun fetchReceipts() {
@@ -130,7 +123,7 @@ class ReceiptsViewModel
 //        receipts = receiptRepository.getReceipts2()
 //        listLoading.postValue(false)
 
-        makeDatabaseCall(receipts, receiptRepository::getReceipts2)
+        makeApiCallAndStoreData(getContext(), status, receiptRemoteDataSource::getUser, receiptRepository::storeReceiptListInDatabase)
 
         //makeApiCall(getContext(), receipts, receiptRepository.getReceipts2())
     }
@@ -159,9 +152,13 @@ class ReceiptsViewModel
 //                }
 //            })
 //        )
-        viewModelScope.launch(Dispatchers.IO) {
-            receiptRepository.repeatReceipt(receiptId)
-        }
+
+
+//        viewModelScope.launch(Dispatchers.IO) {
+//            receiptRepository.repeatReceipt(receiptId)
+//        }
+
+        makeDatabaseCall(null) { receiptRepository.repeatReceipt(receiptId) }
     }
 
     override fun onCleared() {
@@ -174,6 +171,11 @@ class ReceiptsViewModel
 
     init {
         disposable = CompositeDisposable()
+
+        viewModelScope.launch(Dispatchers.IO) {
+            receipts = receiptRepository.getReceipts2()
+        }
+
         fetchReceipts()
     }
 }

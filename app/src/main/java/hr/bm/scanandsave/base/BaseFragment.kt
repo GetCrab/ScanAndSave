@@ -15,7 +15,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
 abstract class BaseFragment : DaggerFragment() {
-//    private var unbinder: Unbinder? = null
+
     private var activity: AppCompatActivity? = null
     private var disposable: CompositeDisposable? = CompositeDisposable()
 

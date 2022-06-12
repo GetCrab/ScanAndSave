@@ -27,6 +27,7 @@ import hr.bm.scanandsave.database.entities.Receipt
 import hr.bm.scanandsave.databinding.FragmentMainBinding
 import hr.bm.scanandsave.databinding.FragmentReceiptsBinding
 import hr.bm.scanandsave.utils.Resource
+import hr.bm.scanandsave.utils.ResourceStatus
 import hr.bm.scanandsave.utils.ViewModelFactory
 import hr.bm.scanandsave.utils.dateToString
 import javax.inject.Inject
@@ -167,17 +168,24 @@ class ReceiptsFragment(private val parentViewModel: MainViewModel) : BaseFragmen
                 // Set observer for updating data
                 viewModel.getReceipts().observe(
                     lifecycleOwner, { result ->
-                        if (result?.status == Resource.Status.SUCCESS) {
-                            //result.data?.removeObservers(lifecycleOwner)
-                            result.data?.observe(lifecycleOwner, { receipts ->
-                                data.clear()
-                                if (receipts != null) {
-                                    data.addAll(receipts)
-                                }
-                            })
-                        }
-                        binding.recyclerView.setLoading(result?.status == Resource.Status.LOADING)
+//                        if (result?.status == Resource.Status.SUCCESS) {
+//                            //result.data?.removeObservers(lifecycleOwner)
+////                            result.data?.observe(lifecycleOwner, { receipts ->
+////                                data.clear()
+////                                if (receipts != null) {
+////                                    data.addAll(receipts)
+////                                }
+////                            })
+//                        }
+                        data.clear()
+                        data.addAll(result)
                     })
+
+                viewModel.getStatus().observe(
+                    lifecycleOwner, {
+                        binding.recyclerView.setLoading(it.status == ResourceStatus.Status.LOADING)
+                    }
+                )
             }
         }
     }

@@ -12,13 +12,12 @@ import androidx.recyclerview.widget.RecyclerView
 import hr.bm.scanandsave.R
 
 class RecyclerItemDecoration(
-    context: Context,
+    private val context: Context,
     headerHeight: Int,
     isSticky: Boolean,
     callback: SectionCallback
 ) : RecyclerView.ItemDecoration() {
 
-    var context: Context = context
     private var headerOffset: Int = headerHeight
     private var sticky: Boolean = isSticky
     private var sectionCallback: SectionCallback = callback

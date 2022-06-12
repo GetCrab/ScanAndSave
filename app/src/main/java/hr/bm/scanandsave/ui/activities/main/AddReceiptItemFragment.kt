@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.jakewharton.rxbinding2.widget.RxTextView
 import hr.bm.scanandsave.R
+import hr.bm.scanandsave.base.BaseBottomSheetDialogFragment
 import hr.bm.scanandsave.database.entities.ReceiptItem
 import hr.bm.scanandsave.databinding.FragmentAddReceiptItemBinding
 import hr.bm.scanandsave.databinding.FragmentReceiptBottomSheetBinding
@@ -20,7 +21,7 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import java.lang.NumberFormatException
 
-class AddReceiptItemFragment : BottomSheetDialogFragment(), View.OnClickListener {
+class AddReceiptItemFragment : BaseBottomSheetDialogFragment(), View.OnClickListener {
 
     private lateinit var binding: FragmentAddReceiptItemBinding
 
@@ -61,14 +62,15 @@ class AddReceiptItemFragment : BottomSheetDialogFragment(), View.OnClickListener
     private fun setObservers() {
         val storeTextChange = RxTextView.textChanges(binding.name)
         val amountTextChange = RxTextView.textChanges(binding.price)
-        // TODO add to disposable - create BaseDialogFragment ??
-        Observable.combineLatest(listOf(storeTextChange, amountTextChange)) {
-            val store = it[0].toString()
-            val amount = it[1].toString()
+        addToDisposable(
+            Observable.combineLatest(listOf(storeTextChange, amountTextChange)) {
+                val store = it[0].toString()
+                val amount = it[1].toString()
 
-            //TODO add check for number validity
-            binding.btnAdd.isEnabled = store.length in 1..30 && amount.isNotEmpty()
-        }.subscribeOn(AndroidSchedulers.mainThread()).subscribe()
+                //TODO add check for number validity
+                binding.btnAdd.isEnabled = store.length in 1..30 && amount.isNotEmpty()
+            }.subscribeOn(AndroidSchedulers.mainThread()).subscribe()
+        )
     }
 
     private fun setOnClickListener() {
@@ -84,7 +86,8 @@ class AddReceiptItemFragment : BottomSheetDialogFragment(), View.OnClickListener
 
     private fun addReceiptItem() {
         try {
-            val item = ReceiptItem(0, 0, binding.name.text.toString(), "", binding.price.text.toString().toDouble(), 1)
+            val item = ReceiptItem(0, 0, binding.name.text.toString(), "",
+                binding.price.text.toString().toDouble(), 1)
             if (mIsEdit)
                 parentViewModel.editReceiptItem(mPosition, item)
             else
